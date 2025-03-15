@@ -17,7 +17,7 @@
             justify-content: center;
             text-align: center;
             height: 100vh;
-            overflow: hidden;
+            overflow-y: auto; /* Allow vertical scrolling */
         }
         h1 {
             font-size: 3em;
@@ -43,14 +43,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            width: 100%; /* Full width */
+            max-width: 800px;
             box-sizing: border-box;
             position: relative;
+            margin-top: 20px;
+            overflow: hidden; /* Prevent overflow within video container */
         }
         video {
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 60vh; /* Limit height to 60% of the viewport height */
+            object-fit: contain; /* Ensure video maintains its aspect ratio */
             border-radius: 0;
         }
         .play-button {
@@ -78,9 +82,11 @@
             }
             .video-container {
                 padding: 10px;
+                width: 100%;
             }
             video {
                 width: 100%;
+                max-height: 50vh;
             }
             .play-button {
                 font-size: 1.8em;
