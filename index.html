@@ -4,6 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trolled by Your Ex</title>
+    <script type="module">
+        // Import Firebase i Firestore module
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        // Firebase konfiguracija
+        const firebaseConfig = {
+            apiKey: "AIzaSyDoYh1ggL8HIlOrpCrEEcTV26xqp77umSc",
+            authDomain: "pookie-648b1.firebaseapp.com",
+            projectId: "pookie-648b1",
+            storageBucket: "pookie-648b1.appspot.com",
+            messagingSenderId: "517533284969",
+            appId: "1:517533284969:web:f55c11c2d4b1da60f100f8"
+        };
+
+        // Inicijalizacija Firebase-a
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Funkcija za beleženje klika
+        async function trackClick() {
+            const clickData = {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                screenWidth: screen.width,
+                screenHeight: screen.height,
+                platform: navigator.platform,
+                online: navigator.onLine,
+                referer: document.referrer || "Direct",
+            };
+
+            try {
+                await addDoc(collection(db, "clicks"), clickData);
+                console.log("Click recorded:", clickData);
+            } catch (error) {
+                console.error("Error recording click:", error);
+            }
+        }
+
+        // Poziv funkcije kada se korisnik učita stranicu
+        trackClick();
+    </script>
     <style>
         html, body {
             margin: 0;
@@ -18,7 +61,7 @@
             text-align: center;
             height: 100%;
             min-height: 100vh;
-            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-y: auto;
         }
 
         h1 {
@@ -49,20 +92,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%; /* Full width */
+            width: 100%;
             max-width: 800px;
             box-sizing: border-box;
             position: relative;
             margin-top: 20px;
-            overflow: hidden; /* Prevent overflow within video container */
+            overflow: hidden;
         }
 
         video {
             width: 100%;
             max-width: 100%;
-            max-height: 60vh; /* Limit height to 60% of the viewport height */
-            object-fit: contain; /* Ensure video maintains its aspect ratio */
-            border-radius: 0;
+            max-height: 60vh;
+            object-fit: contain;
         }
 
         .play-button {
@@ -81,45 +123,19 @@
             background-color: darkred;
         }
 
-        /* Responsive styles for smaller screens */
+        /* Responsive styles */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .troll {
-                font-size: 3em;
-            }
-
-            .video-container {
-                padding: 10px;
-                width: 100%;
-            }
-
-            video {
-                width: 100%;
-                max-height: 50vh;
-            }
-
-            .play-button {
-                font-size: 1.8em;
-                padding: 12px 24px;
-            }
+            h1 { font-size: 2em; }
+            .troll { font-size: 3em; }
+            .video-container { padding: 10px; }
+            video { max-height: 50vh; }
+            .play-button { font-size: 1.8em; padding: 12px 24px; }
         }
 
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .troll {
-                font-size: 2.8em;
-            }
-
-            .play-button {
-                font-size: 2.2em;
-                padding: 14px 28px;
-            }
+            h1 { font-size: 1.8em; }
+            .troll { font-size: 2.8em; }
+            .play-button { font-size: 2.2em; padding: 14px 28px; }
         }
     </style>
 </head>
@@ -128,7 +144,6 @@
     <div class="troll">🤣</div>
 
     <div class="video-container">
-        <!-- Replace the relative path with the correct path on GitHub -->
         <video id="rickroll-video" autoplay loop muted>
             <source src="meg.mp4" type="video/mp4">
             Your browser does not support the video tag.
