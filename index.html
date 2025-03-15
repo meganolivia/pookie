@@ -44,14 +44,14 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
         video {
             width: 100%;
-            max-width: 450px;
             height: auto;
-            border-radius: 10px;
+            object-fit: cover;
+            border-radius: 0;
         }
         .play-button {
             margin-top: 20px;
@@ -80,7 +80,7 @@
                 padding: 10px;
             }
             video {
-                max-width: 90%;
+                width: 100%;
             }
             .play-button {
                 font-size: 1.8em;
@@ -94,9 +94,6 @@
             }
             .troll {
                 font-size: 2.8em;
-            }
-            video {
-                max-width: 95%;
             }
             .play-button {
                 font-size: 2.2em;
